@@ -1,0 +1,171 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* ─────────────────────────────────────
+     Base
+  ───────────────────────────────────── */
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* ─────────────────────────────────────
+     Cards
+  ───────────────────────────────────── */
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /* ─────────────────────────────────────
+     Primary — Healthcare Red
+  ───────────────────────────────────── */
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* ─────────────────────────────────────
+     Secondary
+  ───────────────────────────────────── */
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  /* ─────────────────────────────────────
+     Muted
+  ───────────────────────────────────── */
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* ─────────────────────────────────────
+     Accent
+  ───────────────────────────────────── */
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* ─────────────────────────────────────
+     Borders & Inputs
+  ───────────────────────────────────── */
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ─────────────────────────────────────
+     Status Colors
+  ───────────────────────────────────── */
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  /* ─────────────────────────────────────
+     Healthcare Palette
+  ───────────────────────────────────── */
+
+  --color-medical-red: #dc2626;
+  --color-medical-red-dark: #b91c1c;
+  --color-medical-red-light: #fef2f2;
+
+  --color-medical-green: #16a34a;
+  --color-medical-blue: #2563eb;
+
+  /* ─────────────────────────────────────
+     Radius
+  ───────────────────────────────────── */
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+}
+
+/* ═══════════════════════════════════════
+   LIGHT THEME
+   ═══════════════════════════════════════ */
+
+:root {
+  /* Base */
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Cards */
+  --card: #ffffff;
+  --card-foreground: #171717;
+
+  /* Primary — Medical Red */
+  --primary: #dc2626;
+  --primary-foreground: #ffffff;
+
+  /* Secondary */
+  --secondary: #f5f5f5;
+  --secondary-foreground: #262626;
+
+  /* Muted */
+  --muted: #f8f8f8;
+  --muted-foreground: #737373;
+
+  /* Accent */
+  --accent: #fef2f2;
+  --accent-foreground: #b91c1c;
+
+  /* Borders */
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #dc2626;
+
+  /* Status */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --success: #16a34a;
+  --success-foreground: #ffffff;
+}
+
+/* ═══════════════════════════════════════
+   DARK THEME
+   ═══════════════════════════════════════ */
+
+.dark {
+  /* Base */
+  --background: #0f0f10;
+  --foreground: #fafafa;
+
+  /* Cards */
+  --card: #18181b;
+  --card-foreground: #fafafa;
+
+  /* Primary */
+  --primary: #ef4444;
+  --primary-foreground: #ffffff;
+
+  /* Secondary */
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+
+  /* Muted */
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+
+  /* Accent */
+  --accent: #3f1518;
+  --accent-foreground: #fca5a5;
+
+  /* Borders */
+  --border: #27272a;
+  --input: #3f3f46;
+  --ring: #ef4444;
+
+  /* Status */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+}
