@@ -10,35 +10,45 @@ import {
   ShieldCheck,
   Stethoscope,
   X,
+  Activity,
+  ClipboardList
 } from 'lucide-react'
 import config from '@/app.json'
+import logo from '@/public/logo.png'
 
 const solutions = [
   {
-    title: 'Find trusted care',
-    text: 'Discover verified doctors and health services that fit your needs.',
+    title: 'Manual Vitals Entry',
+    text: 'A tactile, error-free interface for nurses to quickly log blood pressure, heart rate, and temperatures.',
     image:
       'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=85',
-    color: 'bg-red-50',
   },
   {
-    title: 'Manage your health',
-    text: 'Keep appointments, records, and care plans in one calm place.',
+    title: 'Walk-in Queues',
+    text: 'Real-time patient tracking. Know exactly who is waiting, their vitals, and their priority level.',
     image:
       'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85',
-    color: 'bg-red-50',
   },
   {
-    title: 'Feel supported',
-    text: 'Get simple guidance and a team that is here when you need it.',
+    title: 'Doctor Checkups',
+    text: 'A complete physical-feeling digital chart. Review vitals instantly and prescribe with a single click.',
     image:
       'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=900&q=85',
-    color: 'bg-neutral-50',
   },
 ]
 
+// Minimalist Skeuomorphic Design Tokens
+const skeuoRaised =
+  'bg-neutral-100 border border-white/60 shadow-[8px_8px_16px_rgba(0,0,0,0.06),-8px_-8px_16px_rgba(255,255,255,0.9)]'
+const skeuoPressed =
+  'bg-neutral-100 shadow-[inset_4px_4px_8px_rgba(0,0,0,0.06),inset_-4px_-4px_8px_rgba(255,255,255,0.9)] border-transparent'
+const skeuoBtnRed =
+  'bg-gradient-to-b from-red-500 to-red-600 text-white shadow-[6px_6px_12px_rgba(220,38,38,0.25),-4px_-4px_10px_rgba(255,255,255,0.9),inset_0_2px_1px_rgba(255,255,255,0.3),inset_0_-2px_1px_rgba(0,0,0,0.2)] active:shadow-[inset_0_3px_6px_rgba(0,0,0,0.3)] active:translate-y-0.5'
+const skeuoBtnLight =
+  'bg-neutral-100 text-neutral-800 shadow-[5px_5px_10px_rgba(0,0,0,0.06),-5px_-5px_10px_rgba(255,255,255,0.9),inset_0_1px_1px_rgba(255,255,255,0.6)] active:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.08),inset_-3px_-3px_6px_rgba(255,255,255,0.8)] active:translate-y-0.5'
+
 const buttonBase =
-  'inline-flex items-center justify-center gap-2.5 rounded-full border-0 px-[21px] py-3.5 text-[13px] font-bold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_9px_20px_rgba(220,38,38,0.18)]'
+  'inline-flex items-center justify-center gap-2.5 rounded-full border-0 px-[21px] py-3.5 text-[13px] font-bold transition-all duration-200'
 
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -52,258 +62,246 @@ export default function Page() {
   return (
     <main
       id="top"
-      className="overflow-hidden bg-white text-neutral-900"
+      className="overflow-hidden bg-neutral-100 text-neutral-900 selection:bg-red-200 selection:text-red-900"
     >
       {/* ─────────────────────────────────────
           Header
       ───────────────────────────────────── */}
+      <header className="mx-auto flex h-20 max-w-310 items-center justify-between px-8 max-[800px]:h-20 max-[800px]:px-5">
 
-      <header className="mx-auto flex h-[82px] max-w-[1240px] items-center justify-between px-8 max-[800px]:h-[70px] max-[800px]:px-5">
-        <a
-          className="inline-flex items-center gap-[9px] text-[23px] font-extrabold tracking-[-.07em]"
-          href="#top"
-          aria-label={config.name}
-        >
-          <span className="grid size-[30px] -rotate-12 place-items-center rounded-[50%_50%_50%_8px] bg-red-600 text-white [&_svg]:rotate-12">
-            <Stethoscope size={18} />
-          </span>
-
-          <span>{config.name}</span>
-        </a>
+        <div className='flex gap-2 items-center justify-center'>
+          {/* Skeuomorphic Logo Button */}
+          <Image alt='logo' src={logo} className='w-10' />
+          <span className='font-extrabold tracking-tighter text-2xl'>{config.name}</span>
+        </div>
 
         {/* Navigation */}
         <nav
-          className={`${
-            menuOpen ? 'flex' : 'hidden'
-          } absolute left-[18px] right-[18px] top-[104px] z-10 flex-col items-start gap-5 rounded-2xl border border-neutral-100 bg-white p-[22px] text-[13px] text-neutral-500 shadow-[0_15px_35px_rgba(0,0,0,0.08)] min-[801px]:static min-[801px]:flex min-[801px]:flex-row min-[801px]:items-center min-[801px]:gap-[34px] min-[801px]:rounded-none min-[801px]:border-0 min-[801px]:bg-transparent min-[801px]:p-0 min-[801px]:shadow-none`}
+          className={`${menuOpen ? 'flex' : 'hidden'
+            } absolute left-[18px] right-[18px] top-[104px] z-20 flex-col items-start gap-5 rounded-2xl ${skeuoRaised} p-[22px] text-[13px] font-medium text-neutral-500 min-[801px]:static min-[801px]:flex min-[801px]:flex-row min-[801px]:items-center min-[801px]:gap-[34px] min-[801px]:rounded-none min-[801px]:border-0 min-[801px]:bg-transparent min-[801px]:p-0 min-[801px]:shadow-none`}
           aria-label="Primary navigation"
         >
-          {['About us', 'Solutions', 'Our impact', 'Contact'].map(
-            (item) => (
-              <a
-                key={item}
-                className="transition-colors hover:text-red-600"
-                href={`#${
-                  item === 'About us'
-                    ? 'about'
-                    : item === 'Our impact'
-                      ? 'impact'
-                      : item.toLowerCase()
+          {['Features', 'Workflows', 'Platform', 'Contact'].map((item) => (
+            <a
+              key={item}
+              className="transition-colors hover:text-red-600"
+              href={`#${item === 'Features'
+                ? 'about'
+                : item === 'Workflows'
+                  ? 'solutions'
+                  : item === 'Platform'
+                    ? 'impact'
+                    : 'contact'
                 }`}
-                onClick={() => setMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ),
-          )}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
         </nav>
 
         {/* Desktop CTA */}
         <a
-          className={`${buttonBase} bg-neutral-900 text-white hover:bg-red-600 max-[800px]:hidden`}
+          className={`${buttonBase} ${skeuoBtnRed} max-[800px]:hidden`}
           href="#contact"
         >
-          Get in touch
+          Book Demo
           <ArrowUpRight size={16} />
         </a>
 
         {/* Mobile Menu Button */}
         <button
-          className="hidden border-0 bg-transparent text-neutral-900 max-[800px]:block"
+          className={`hidden size-10 place-items-center rounded-full border-0 text-neutral-700 max-[800px]:grid ${skeuoBtnLight}`}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? <X /> : <Menu />}
+          {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </header>
 
       {/* ─────────────────────────────────────
           Hero
       ───────────────────────────────────── */}
+      <section className="mx-auto grid min-h-[calc(100vh-10rem)] max-w-310 grid-cols-[1fr_1fr] items-center gap-12 px-8 pb-25 pt-15 max-[800px]:grid-cols-1 max-[800px]:px-5 max-[800px]:pb-18.5 max-[800px]:pt-10">
 
-      <section
-        className="mx-auto grid min-h-[620px] max-w-[1240px] grid-cols-[.9fr_1.1fr] items-center gap-8 px-8 pb-[100px] pt-[74px] max-[800px]:grid-cols-1 max-[800px]:px-5 max-[800px]:pb-[74px] max-[800px]:pt-14"
-      >
         {/* Hero Content */}
         <div className="relative z-[2]">
           <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.12em] text-red-600">
-            <span className="size-2 rounded-full bg-red-600" />
-
-            Your health, reimagined
+            <span className="size-2.5 rounded-full bg-gradient-to-br from-red-400 to-red-600 shadow-[2px_2px_4px_rgba(220,38,38,0.3),inset_1px_1px_1px_rgba(255,255,255,0.5)]" />
+            Clinic EMR SaaS
           </div>
 
-          <h1 className="mt-[22px] max-w-[610px] text-[clamp(55px,7vw,94px)] font-extrabold leading-[.9] tracking-[-.085em] text-neutral-950">
-            Care that{' '}
-            <em className="not-italic text-red-600">
-              moves
-            </em>{' '}
-            with you.
+          <h1 className="mt-6 max-w-[580px] text-[clamp(48px,6vw,82px)] font-extrabold leading-[.95] tracking-[-.06em] text-neutral-800">
+            The complete EMR for{' '}
+            <span className="bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
+              walk-in care.
+            </span>
           </h1>
 
-          <p className="mb-8 mt-7 max-w-[415px] text-base leading-[1.65] text-neutral-500">
-            A simpler way to connect with the right care, build
-            healthier habits, and feel supported at every step of
-            your journey.
+          <p className="mb-10 mt-7 max-w-[440px] text-[16px] leading-[1.6] text-neutral-500">
+            Seamlessly log manual vitals, manage high-volume patient queues, and empower doctors with instant digital charts. Fully hosted, incredibly physical.
           </p>
 
           {/* Hero Actions */}
           <div className="flex flex-wrap items-center gap-[23px]">
-            <a
-              className={`${buttonBase} bg-red-600 text-white hover:bg-red-700`}
-              href="#contact"
-            >
-              Start your journey
+            <a className={`${buttonBase} ${skeuoBtnRed}`} href="#contact">
+              Get Early Access
               <ArrowUpRight size={18} />
             </a>
 
             <a
-              className="flex items-center gap-[9px] text-[13px] font-bold text-neutral-900"
+              className={`flex items-center gap-[9px] rounded-full px-5 py-3 text-[13px] font-bold text-neutral-700 ${skeuoBtnLight}`}
               href="#about"
             >
-              <span className="grid size-[27px] place-items-center rounded-full border border-neutral-300 text-red-600">
-                <Play
-                  size={12}
-                  fill="currentColor"
-                />
+              <span className="grid size-5 place-items-center rounded-full bg-neutral-200 text-red-600 shadow-inner">
+                <Play size={10} fill="currentColor" />
               </span>
-
-              See how it works
+              See Workflows
             </a>
-          </div>
-
-          {/* Trust */}
-          <div className="mt-[46px] flex items-center gap-[13px] text-[11px] text-neutral-400">
-            <div className="flex">
-              <span className="mr-[-7px] grid size-[27px] place-items-center rounded-full border-2 border-white bg-red-400 text-[8px] font-bold text-white">
-                AK
-              </span>
-
-              <span className="mr-[-7px] grid size-[27px] place-items-center rounded-full border-2 border-white bg-red-500 text-[8px] font-bold text-white">
-                MR
-              </span>
-
-              <span className="mr-[-7px] grid size-[27px] place-items-center rounded-full border-2 border-white bg-red-700 text-[8px] font-bold text-white">
-                JL
-              </span>
-            </div>
-
-            <p>
-              <strong className="text-[13px] text-neutral-900">
-                12k+
-              </strong>{' '}
-              people choosing better care
-            </p>
           </div>
         </div>
 
-        {/* Hero Image */}
+        {/* Hero UI Mockup (No Image Required) */}
         <div
-          className="relative flex h-[510px] items-center justify-center max-[800px]:mt-2 max-[800px]:h-[400px]"
-          aria-label="A doctor and patient talking"
+          className="relative flex h-[500px] w-full flex-col justify-center gap-6 max-[800px]:mt-6 max-[800px]:h-auto"
+          aria-label="Interactive UI preview"
         >
-          {/* Decorative Shape */}
-          <div className="absolute h-[440px] w-[490px] rotate-[-9deg] rounded-[48%_52%_43%_57%] bg-red-100 max-[800px]:h-[330px] max-[800px]:w-[350px]" />
+          {/* Vitals Input Widget */}
+          <div className={`z-[2] w-[85%] self-end rounded-[28px] p-6 ${skeuoRaised} max-[800px]:w-full`}>
+            <div className="mb-5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className={`grid size-11 place-items-center rounded-full text-red-500 ${skeuoPressed}`}>
+                  <Activity size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <div className="text-[14px] font-extrabold tracking-tight text-neutral-800">Log Vitals</div>
+                  <div className="text-[11px] font-medium text-neutral-400">Room 2 • Walk-in</div>
+                </div>
+              </div>
+              <div className={`grid size-8 place-items-center rounded-full text-red-500 ${skeuoRaised}`}>
+                <Check size={14} strokeWidth={3} />
+              </div>
+            </div>
 
-          <div className="absolute left-[12%] top-[35px] z-[3] rotate-[-12deg] text-base font-extrabold leading-[.85] text-red-600">
-            care
-            <br />
-            for all
+            <div className="grid grid-cols-2 gap-4">
+              <div className={`flex flex-col items-center justify-center rounded-[18px] py-4 ${skeuoPressed}`}>
+                <div className="text-[22px] font-black tracking-tighter text-neutral-800">120/80</div>
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-neutral-400">BP (mmHg)</div>
+              </div>
+              <div className={`flex flex-col items-center justify-center rounded-[18px] py-4 ${skeuoPressed}`}>
+                <div className="text-[22px] font-black tracking-tighter text-neutral-800">98.6</div>
+                <div className="mt-1 text-[10px] font-bold uppercase tracking-wider text-neutral-400">Temp (°F)</div>
+              </div>
+            </div>
           </div>
 
-          {/* Main Image */}
-          <div className="relative h-[460px] w-[min(420px,78%)] rotate-[5deg] skew-y-[-3deg] overflow-hidden rounded-[45%_22%_37%_17%] shadow-[18px_25px_0_rgba(220,38,38,0.12)] max-[800px]:h-[355px] max-[800px]:w-[min(315px,80%)]">
-            <Image
-              src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1100&q=85"
-              alt="Doctor smiling in a bright clinic"
-              fill
-              priority
-              sizes="(max-width: 768px) 90vw, 48vw"
-              className="scale-[1.08] object-cover"
-            />
-          </div>
+          {/* Patient Queue Widget */}
+          <div className={`z-[1] -mt-12 w-[90%] self-start rounded-[28px] p-6 pt-16 ${skeuoRaised} max-[800px]:w-full`}>
+            <div className="mb-4 flex items-center justify-between">
+              <div className="text-[11px] font-bold uppercase tracking-[.1em] text-neutral-400">Active Queue</div>
+              <div className="text-[11px] font-bold text-red-500">3 Waiting</div>
+            </div>
 
-          {/* Verified Care Card */}
-          <div className="absolute right-[1%] top-[74px] z-[4] flex rotate-[4deg] items-center gap-2.5 rounded-[14px] border border-neutral-100 bg-white px-[17px] py-[13px] text-[11px] text-neutral-900 shadow-[0_16px_30px_rgba(0,0,0,0.09)] max-[800px]:right-0 max-[800px]:top-6">
-            <ShieldCheck
-              size={18}
-              className="text-red-600"
-            />
+            <div className="flex flex-col gap-3">
+              {/* Active Patient */}
+              <div className={`flex items-center justify-between rounded-[16px] p-3.5 ${skeuoPressed}`}>
+                <div className="flex items-center gap-3">
+                  <div className="size-2.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
+                  <div className="text-[13px] font-bold text-neutral-800">Muhammad A.</div>
+                </div>
+                <div className="text-[11px] font-bold text-neutral-400">Ready</div>
+              </div>
 
-            <span className="flex flex-col gap-[3px]">
-              <strong>Verified care</strong>
-
-              <small className="text-[9px] text-neutral-400">
-                People you can trust
-              </small>
-            </span>
-          </div>
-
-          {/* Always Here Card */}
-          <div className="absolute bottom-14 left-0 z-[4] flex rotate-[-5deg] items-center gap-2.5 rounded-[14px] border border-neutral-100 bg-white px-[17px] py-[13px] text-[11px] text-neutral-900 shadow-[0_16px_30px_rgba(0,0,0,0.09)] max-[800px]:bottom-6">
-            <span className="size-3 rounded-full bg-red-500 shadow-[0_0_0_5px_rgba(239,68,68,0.15)]" />
-
-            <span className="flex flex-col gap-[3px]">
-              <strong>Always here</strong>
-
-              <small className="text-[9px] text-neutral-400">
-                24/7 support for you
-              </small>
-            </span>
+              {/* Waiting Patient */}
+              <div className={`flex items-center justify-between rounded-[16px] p-3.5 ${skeuoRaised}`}>
+                <div className="flex items-center gap-3">
+                  <div className="size-2.5 rounded-full bg-neutral-300 shadow-inner" />
+                  <div className="text-[13px] font-bold text-neutral-600">Sarah M.</div>
+                </div>
+                <div className="text-[11px] font-bold text-neutral-400">Wait: 12m</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────
-          Ticker
+          Ticker (Engraved Style)
       ───────────────────────────────────── */}
-
       <section
-        className="flex min-h-12 items-center justify-around gap-5 overflow-hidden whitespace-nowrap bg-neutral-950 text-[10px] uppercase tracking-[.2em] text-white max-[440px]:justify-start max-[440px]:pl-5"
-        aria-label="Our focus"
+        className="flex min-h-16 items-center overflow-hidden border-y border-white/50 bg-black text-[11px] font-bold uppercase tracking-[.2em] text-neutral-400"
+        aria-label="Features"
       >
-        <span>healthcare for everyone</span>
-        <span className="text-red-500">•</span>
-        <span>human at heart</span>
-        <span className="text-red-500">•</span>
-        <span>designed for real life</span>
-        <span className="text-red-500">•</span>
-        <span>healthcare for everyone</span>
+        <style>{`
+          @keyframes scroll-ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-ticker {
+            /* Increased time to 30s because the container is much wider now */
+            animation: scroll-ticker 30s linear infinite;
+          }
+        `}</style>
+
+        {/* The parent container moving at a constant speed */}
+        <div className="flex w-max animate-ticker hover:[animation-play-state:paused]">
+          
+          {/* Group 1: 15vw gap means 15% of the screen width between every word */}
+          <div className="flex w-max items-center gap-[8vw] pr-[8vw]">
+            <span>Manual Vitals Entry</span>
+            <span className="text-red-400 shadow-inner">•</span>
+            <span>Walk-in Workflows</span>
+            <span className="text-red-400 shadow-inner">•</span>
+            <span>Instant Checkups</span>
+            <span className="text-red-400 shadow-inner">•</span>
+            <span>SaaS Cloud EMR</span>
+            <span className="text-red-400 shadow-inner">•</span>
+          </div>
+
+          {/* Group 2: An exact mathematical clone of Group 1 to ensure the seam is invisible */}
+          <div className="flex w-max items-center gap-[8vw] pr-[8vw]">
+            <span>Manual Vitals Entry</span>
+            <span className="text-red-400 shadow-inner">•</span>
+            <span>Walk-in Workflows</span>
+            <span className="text-red-400 shadow-inner">•</span>
+            <span>Instant Checkups</span>
+            <span className="text-red-400 shadow-inner">•</span>
+            <span>SaaS Cloud EMR</span>
+            <span className="text-red-400 shadow-inner">•</span>
+          </div>
+
+        </div>
       </section>
 
       {/* ─────────────────────────────────────
           About
       ───────────────────────────────────── */}
-
       <section
-        className="mx-auto max-w-[1240px] px-8 py-[130px] max-[800px]:px-5 max-[800px]:py-[85px]"
+        className="mx-auto max-w-310 px-8 py-[130px] max-[800px]:px-5 max-[800px]:py-[85px]"
         id="about"
       >
-        <div className="text-[10px] font-bold uppercase tracking-[.14em] text-neutral-400">
-          01 / Who we are
+        <div className="inline-block rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-neutral-500 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.05),inset_-2px_-2px_5px_rgba(255,255,255,1)]">
+          01 / The Clinic Engine
         </div>
 
-        <div className="mt-12 grid grid-cols-[1.1fr_.9fr] gap-[100px] max-[800px]:grid-cols-1 max-[800px]:gap-[35px]">
-          <h2 className="text-[clamp(40px,5vw,66px)] font-bold leading-[.98] tracking-[-.07em] text-neutral-950">
-            Healthcare should feel{' '}
+        <div className="mt-12 grid grid-cols-[1.1fr_.9fr] gap-[100px] max-[800px]:grid-cols-1 max-[800px]:gap-[45px]">
+          <h2 className="text-[clamp(38px,5vw,60px)] font-bold leading-[1] tracking-[-.06em] text-neutral-800">
+            Software that feels as reliable as a{' '}
             <span className="text-red-600">
-              human.
+              clipboard.
             </span>
           </h2>
 
           <div>
-            <p className="mb-6 max-w-[425px] text-[15px] leading-[1.7] text-neutral-500">
-              We believe getting care should be clear, personal,
-              and built around your life—not the other way around.
-              {config.name} brings the pieces together so you can spend
-              less time navigating healthcare and more time feeling
-              your best.
+            <p className="mb-8 max-w-[425px] text-[15px] leading-[1.7] text-neutral-500">
+              We built {config.name} for the reality of walk-in clinics. Nurses need fast, tactile manual vitals entry. Doctors need instant access to patient histories. By combining physical-feeling UI with powerful SaaS infrastructure, your clinic moves faster with zero friction.
             </p>
 
             <a
-              className="inline-flex items-center gap-[9px] text-[13px] font-bold text-red-600 transition hover:text-red-700"
+              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-[13px] font-bold text-red-600 ${skeuoBtnLight}`}
               href="#solutions"
             >
-              Meet {config.name}
+              Explore the Platform
               <ArrowUpRight size={16} />
             </a>
           </div>
@@ -311,207 +309,180 @@ export default function Page() {
       </section>
 
       {/* ─────────────────────────────────────
-          Solutions
+          Solutions (Cards)
       ───────────────────────────────────── */}
-
       <section
-        className="mx-auto max-w-[1240px] px-8 pb-[130px] pt-6 max-[800px]:px-5 max-[800px]:pb-[85px]"
+        className="mx-auto max-w-310 px-8 pb-[130px] pt-6 max-[800px]:px-5 max-[800px]:pb-[85px]"
         id="solutions"
       >
         <div className="flex items-end justify-between gap-[30px] max-[440px]:flex-col max-[440px]:items-start max-[440px]:gap-[18px]">
           <div>
-            <div className="text-[10px] font-bold uppercase tracking-[.14em] text-neutral-400">
-              02 / What we do
+            <div className="inline-block rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-neutral-500 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.05),inset_-2px_-2px_5px_rgba(255,255,255,1)]">
+              02 / Core Workflows
             </div>
-
-            <h2 className="mt-5 text-[clamp(40px,5vw,66px)] font-bold leading-[.98] tracking-[-.07em] text-neutral-950">
-              Everything you need
+            <h2 className="mt-6 text-[clamp(38px,5vw,60px)] font-bold leading-[1] tracking-[-.06em] text-neutral-800">
+              Built for high-volume
               <br />
               <span className="text-red-600">
-                to feel well.
+                patient care.
               </span>
             </h2>
           </div>
-
-          <p className="max-w-[200px] text-[13px] leading-[1.5] text-neutral-500">
-            Small, thoughtful tools for the moments that matter
-            most.
+          <p className="max-w-[240px] text-[14px] leading-[1.5] text-neutral-500">
+            Everything your staff needs to manage a patient from the waiting room to the pharmacy.
           </p>
         </div>
 
-        <div className="mt-[60px] grid grid-cols-3 gap-[18px] max-[800px]:mt-10 max-[800px]:grid-cols-1">
+        <div className="mt-[70px] grid grid-cols-3 gap-8 max-[800px]:mt-10 max-[800px]:grid-cols-1">
           {solutions.map((solution, index) => (
             <article
-              className={`${solution.color} relative min-h-[400px] overflow-hidden rounded-[25px] border border-red-100 p-[18px] transition-all duration-200 hover:-translate-y-[7px] hover:rotate-[-1deg] hover:shadow-[0_20px_45px_rgba(220,38,38,0.08)]`}
+              className={`group relative min-h-[420px] rounded-[32px] p-6 transition-all duration-300 hover:-translate-y-2 ${skeuoRaised}`}
               key={solution.title}
             >
-              <div className="relative h-[184px] rotate-[-2deg] overflow-hidden rounded-[18px_45%_18px_32px]">
-                <Image
-                  src={solution.image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 90vw, 30vw"
-                  className="object-cover"
-                />
+              {/* Image Screen Bezel */}
+              <div className={`relative h-[190px] w-full overflow-hidden rounded-[20px] p-1.5 ${skeuoPressed}`}>
+                <div className="relative size-full overflow-hidden rounded-[14px]">
+                  <Image
+                    src={solution.image}
+                    alt={solution.title}
+                    fill
+                    sizes="(max-width: 768px) 90vw, 30vw"
+                    className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Subtle Screen Glare Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30" />
+                </div>
               </div>
 
-              <div className="mt-6 text-[10px] font-bold text-red-400">
-                0{index + 1}
+              <div className="mt-8 flex items-center justify-between">
+                <div className={`grid size-8 place-items-center rounded-full text-[10px] font-bold text-red-500 ${skeuoPressed}`}>
+                  0{index + 1}
+                </div>
               </div>
 
-              <h3 className="mb-2 mt-2 text-[23px] font-bold tracking-[-.06em] text-neutral-950">
+              <h3 className="mb-3 mt-4 text-[20px] font-extrabold tracking-[-.04em] text-neutral-800">
                 {solution.title}
               </h3>
 
-              <p className="max-w-[220px] text-xs leading-[1.5] text-neutral-500">
+              <p className="max-w-[240px] text-[13px] leading-[1.6] text-neutral-500">
                 {solution.text}
               </p>
-
-              <a
-                className="absolute bottom-[19px] right-[22px] grid size-9 place-items-center rounded-full bg-white text-red-600 shadow-sm transition hover:bg-red-600 hover:text-white"
-                href="#contact"
-                aria-label={`Learn about ${solution.title}`}
-              >
-                <ArrowUpRight size={19} />
-              </a>
             </article>
           ))}
         </div>
       </section>
 
       {/* ─────────────────────────────────────
-          Impact
+          Impact (Skeuomorphic Plate)
       ───────────────────────────────────── */}
-
       <section
-        className="relative mx-auto mb-[130px] grid min-h-[470px] max-w-[1240px] grid-cols-[1fr_.4fr] gap-20 overflow-hidden rounded-[38px_14px_38px_14px] bg-red-600 px-[75px] py-[70px] text-white max-[800px]:mx-5 max-[800px]:mb-[85px] max-[800px]:grid-cols-1 max-[800px]:gap-[55px] max-[800px]:px-[30px] max-[800px]:py-[50px] max-[440px]:rounded-[25px_10px_25px_10px]"
+        className="mx-auto mb-[130px] max-w-310 px-8 max-[800px]:mb-[85px] max-[800px]:px-5"
         id="impact"
       >
-        <div className="relative z-[1]">
-          <div className="text-[10px] font-bold uppercase tracking-[.14em] text-red-100">
-            03 / Our impact
+        <div className={`relative grid min-h-[470px] grid-cols-[1fr_.5fr] gap-12 overflow-hidden rounded-[40px] p-[70px] max-[800px]:grid-cols-1 max-[800px]:gap-[45px] max-[800px]:rounded-[30px] max-[800px]:p-[40px] ${skeuoRaised}`}>
+
+          <div className="relative z-[1]">
+            <div className="inline-block rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-neutral-500 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.05),inset_-2px_-2px_5px_rgba(255,255,255,1)]">
+              03 / Why SaaS?
+            </div>
+
+            <h2 className="my-6 text-[clamp(36px,5vw,58px)] font-bold leading-[1] tracking-[-.06em] text-neutral-800">
+              No servers.
+              <br />
+              <span className="text-red-600">Just better care.</span>
+            </h2>
+
+            <p className="mb-10 max-w-[400px] text-[15px] leading-[1.7] text-neutral-500">
+              Stop worrying about IT infrastructure. Our complete EMR operates securely in the cloud, allowing your doctors and nurses to focus entirely on patients entering the walk-in clinic.
+            </p>
+
+            <a className={`${buttonBase} ${skeuoBtnRed}`} href="#contact">
+              Deploy in your clinic
+              <ArrowUpRight size={17} />
+            </a>
           </div>
 
-          <h2 className="my-[22px] text-[clamp(42px,5vw,67px)] font-bold leading-[.96] tracking-[-.08em]">
-            Better care
-            <br />
-            <span className="text-red-100">
-              changes everything.
-            </span>
-          </h2>
-
-          <p className="mb-7 max-w-[385px] text-sm leading-[1.7] text-red-50">
-            When care is easier to access, healthier choices become
-            easier to make. We&apos;re building a future where every
-            person has the confidence and tools to take care of
-            themselves.
-          </p>
-
-          <a
-            className={`${buttonBase} bg-white text-neutral-900 hover:bg-red-50`}
-            href="#contact"
-          >
-            Join the movement
-            <ArrowUpRight size={17} />
-          </a>
-        </div>
-
-        <div className="relative z-[1] flex flex-col gap-3.5 self-end pb-[3px]">
-          <strong className="text-[78px] leading-[.8] tracking-[-.1em] text-red-100">
-            01
-          </strong>
-
-          <span className="mb-[17px] text-xl leading-none">
-            People first,
-            <br />
-            always.
-          </span>
-
-          {[
-            'Personal care',
-            'Clear guidance',
-            'Lasting support',
-          ].map((item) => (
-            <div
-              className="flex items-center gap-2 text-xs text-red-50"
-              key={item}
-            >
-              <Check
-                size={15}
-                className="text-white"
-              />
-
-              {item}
+          {/* Stats Indentation */}
+          <div className={`relative z-[1] flex flex-col justify-center rounded-[24px] p-8 ${skeuoPressed}`}>
+            <div className="flex items-center gap-3">
+              <ShieldCheck size={28} className="text-red-500" />
+              <h3 className="text-xl font-bold text-neutral-800">HIPAA Ready</h3>
             </div>
-          ))}
+
+            <div className="mt-8 flex flex-col gap-4">
+              {[
+                'Instant vital syncing',
+                'Live queue dashboard',
+                'Cloud prescription tools',
+                '99.9% SaaS uptime'
+              ].map((item) => (
+                <div className="flex items-center gap-3 text-[13px] font-medium text-neutral-600" key={item}>
+                  <div className={`grid size-6 place-items-center rounded-full text-red-500 ${skeuoRaised}`}>
+                    <Check size={12} strokeWidth={3} />
+                  </div>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ─────────────────────────────────────
-          Contact
+          Contact (Skeuomorphic Form)
       ───────────────────────────────────── */}
-
       <section
-        className="mx-auto grid max-w-[1240px] grid-cols-[.85fr_1.15fr] gap-[110px] px-8 pb-[130px] pt-2.5 max-[800px]:grid-cols-1 max-[800px]:gap-[35px] max-[800px]:px-5 max-[800px]:pb-[85px]"
+        className="mx-auto grid max-w-310 grid-cols-[.85fr_1.15fr] gap-[90px] px-8 pb-[130px] max-[800px]:grid-cols-1 max-[800px]:gap-[45px] max-[800px]:px-5 max-[800px]:pb-[85px]"
         id="contact"
       >
-        {/* Contact Intro */}
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[.14em] text-neutral-400">
-            04 / Say hello
+          <div className="inline-block rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-[.14em] text-neutral-500 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.05),inset_-2px_-2px_5px_rgba(255,255,255,1)]">
+            04 / Book a Demo
           </div>
 
-          <h2 className="my-[22px] text-[clamp(40px,5vw,66px)] font-bold leading-[.98] tracking-[-.07em] text-neutral-950">
-            Let&apos;s make
+          <h2 className="my-6 text-[clamp(36px,5vw,56px)] font-bold leading-[1] tracking-[-.06em] text-neutral-800">
+            Ready to upgrade
             <br />
-            <span className="text-red-600">
-              health personal.
-            </span>
+            <span className="text-red-600">your clinic?</span>
           </h2>
 
-          <p className="max-w-[300px] text-sm leading-[1.6] text-neutral-500">
-            Have a question, an idea, or simply want to know more?
-            We&apos;d love to hear from you.
+          <p className="max-w-[320px] text-[15px] leading-[1.6] text-neutral-500">
+            Get early access to {config.name}'s EMR SaaS and see how seamless a walk-in workflow can be.
           </p>
 
-          <div className="mt-10 flex flex-col gap-2.5">
+          <div className="mt-10 flex flex-col gap-3">
             <a
-              className="inline-flex items-center gap-[9px] text-[13px] font-bold text-red-600 transition hover:text-red-700"
+              className={`inline-flex w-fit items-center gap-3 rounded-full px-6 py-3 text-[13px] font-bold text-neutral-700 transition hover:text-red-600 ${skeuoBtnLight}`}
               href={`mailto:hello@${config.name}.care`}
             >
               hello@{config.name}.care
               <ArrowUpRight size={15} />
             </a>
-
-            <span className="text-[11px] text-neutral-400">
-              We usually reply within one business day.
+            <span className="ml-2 text-[11px] font-medium text-neutral-400">
+              We usually reply within 24 hours.
             </span>
           </div>
         </div>
 
-        {/* Contact Form */}
+        {/* Form Container */}
         <form
-          className="flex flex-col gap-5 rounded-[26px_12px_26px_12px] border border-neutral-100 bg-white p-[33px] shadow-[0_18px_50px_rgba(0,0,0,0.07)] max-[800px]:p-[23px]"
+          className={`flex flex-col gap-6 rounded-[32px] p-[40px] max-[800px]:p-[25px] ${skeuoRaised}`}
           onSubmit={handleSubmit}
         >
           {submitted ? (
-            <div className="flex min-h-[320px] flex-col items-start justify-center gap-3.5">
-              <span className="grid size-11 place-items-center rounded-full bg-red-50 text-red-600">
-                <Check size={24} />
-              </span>
-
-              <h3 className="text-[30px] font-bold tracking-[-.05em] text-neutral-950">
-                Message received.
+            <div className="flex min-h-[350px] flex-col items-center justify-center text-center">
+              <div className={`mb-6 grid size-16 place-items-center rounded-full text-red-500 ${skeuoRaised}`}>
+                <Check size={30} strokeWidth={3} />
+              </div>
+              <h3 className="mb-2 text-[28px] font-extrabold tracking-[-.05em] text-neutral-800">
+                Request Sent.
               </h3>
-
-              <p className="text-sm text-neutral-500">
-                Thanks for reaching out. We&apos;ll be in touch
-                soon.
+              <p className="mb-8 text-sm text-neutral-500">
+                Our team will configure your demo and reach out shortly.
               </p>
-
               <button
                 type="button"
-                className="inline-flex items-center gap-[9px] border-0 bg-transparent p-0 text-[13px] font-bold text-red-600 transition hover:text-red-700"
+                className={`${buttonBase} ${skeuoBtnLight}`}
                 onClick={() => setSubmitted(false)}
               >
                 Send another message
@@ -519,73 +490,55 @@ export default function Page() {
             </div>
           ) : (
             <>
-              {/* Name + Email */}
-              <div className="grid grid-cols-2 gap-5 max-[800px]:grid-cols-1">
-                <label className="flex flex-col gap-2 text-[11px] font-bold text-neutral-900">
-                  Your name
-
+              <div className="grid grid-cols-2 gap-6 max-[800px]:grid-cols-1">
+                <label className="flex flex-col gap-2.5 text-[12px] font-bold text-neutral-700">
+                  Clinic Name
                   <input
                     required
-                    name="name"
-                    placeholder="Jane Smith"
-                    className="rounded-[9px] border border-neutral-200 bg-neutral-50 px-3.5 py-[13px] text-[13px] font-normal outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100 placeholder:text-neutral-400"
+                    name="clinic"
+                    placeholder="City Medical Walk-in"
+                    className={`rounded-[14px] px-4 py-3.5 text-[13px] font-medium text-neutral-800 outline-none transition-all placeholder:text-neutral-400 focus:ring-2 focus:ring-red-400/50 ${skeuoPressed}`}
                   />
                 </label>
 
-                <label className="flex flex-col gap-2 text-[11px] font-bold text-neutral-900">
-                  Email address
-
+                <label className="flex flex-col gap-2.5 text-[12px] font-bold text-neutral-700">
+                  Work Email
                   <input
                     required
                     type="email"
                     name="email"
-                    placeholder="jane@example.com"
-                    className="rounded-[9px] border border-neutral-200 bg-neutral-50 px-3.5 py-[13px] text-[13px] font-normal outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100 placeholder:text-neutral-400"
+                    placeholder="doctor@clinic.com"
+                    className={`rounded-[14px] px-4 py-3.5 text-[13px] font-medium text-neutral-800 outline-none transition-all placeholder:text-neutral-400 focus:ring-2 focus:ring-red-400/50 ${skeuoPressed}`}
                   />
                 </label>
               </div>
 
-              {/* Topic */}
-              <label className="flex flex-col gap-2 text-[11px] font-bold text-neutral-900">
-                What can we help with?
-
+              <label className="flex flex-col gap-2.5 text-[12px] font-bold text-neutral-700">
+                Clinic Volume
                 <select
-                  name="topic"
+                  name="volume"
                   defaultValue=""
-                  className="rounded-[9px] border border-neutral-200 bg-neutral-50 px-3.5 py-[13px] text-[13px] font-normal outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                  className={`rounded-[14px] px-4 py-3.5 text-[13px] font-medium text-neutral-800 outline-none transition-all focus:ring-2 focus:ring-red-400/50 ${skeuoPressed}`}
                 >
-                  <option
-                    value=""
-                    disabled
-                  >
-                    Select an option
-                  </option>
-
-                  <option>General question</option>
-                  <option>Partnership</option>
-                  <option>Care support</option>
+                  <option value="" disabled>Select patient volume per day</option>
+                  <option>1 - 50 Patients</option>
+                  <option>50 - 150 Patients</option>
+                  <option>150+ Patients</option>
                 </select>
               </label>
 
-              {/* Message */}
-              <label className="flex flex-col gap-2 text-[11px] font-bold text-neutral-900">
-                Your message
-
+              <label className="flex flex-col gap-2.5 text-[12px] font-bold text-neutral-700">
+                Additional Details
                 <textarea
-                  required
                   name="message"
-                  placeholder="Tell us a little more..."
+                  placeholder="Tell us about your current vitals and checkup workflow..."
                   rows={4}
-                  className="resize-y rounded-[9px] border border-neutral-200 bg-neutral-50 px-3.5 py-[13px] text-[13px] font-normal outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100 placeholder:text-neutral-400"
+                  className={`resize-y rounded-[16px] px-4 py-3.5 text-[13px] font-medium text-neutral-800 outline-none transition-all placeholder:text-neutral-400 focus:ring-2 focus:ring-red-400/50 ${skeuoPressed}`}
                 />
               </label>
 
-              {/* Submit */}
-              <button
-                className={`${buttonBase} self-start bg-red-600 text-white hover:bg-red-700`}
-                type="submit"
-              >
-                Send message
+              <button className={`${buttonBase} ${skeuoBtnRed} mt-2 w-full`} type="submit">
+                Request Demo Access
                 <ArrowUpRight size={18} />
               </button>
             </>
@@ -596,40 +549,27 @@ export default function Page() {
       {/* ─────────────────────────────────────
           Footer
       ───────────────────────────────────── */}
-
-      <footer className="mx-auto grid max-w-[1240px] grid-cols-3 items-center gap-5 border-t border-neutral-200 px-8 pb-[35px] pt-[30px] text-[11px] text-neutral-400 max-[800px]:grid-cols-2 max-[800px]:px-5">
-        <div className="inline-flex items-center gap-[9px] text-[19px] font-extrabold tracking-[-.07em] text-neutral-950">
-          <span className="grid size-[25px] rotate-[-12deg] place-items-center rounded-[50%_50%_50%_8px] bg-red-600 text-white [&_svg]:rotate-12">
-            <Stethoscope size={18} />
+      <footer className="mx-auto grid max-w-310 grid-cols-3 items-center gap-5 border-t border-white/60 px-8 pb-[40px] pt-[35px] text-[12px] font-medium text-neutral-400 shadow-[inset_0_1px_0_rgba(0,0,0,0.03)] max-[800px]:grid-cols-2 max-[800px]:px-5">
+        <div className="inline-flex items-center gap-[10px] text-[18px] font-extrabold tracking-[-.05em] text-neutral-800">
+          <span className="grid size-[28px] place-items-center rounded-[8px] bg-neutral-200 text-red-500 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.1),inset_-2px_-2px_4px_rgba(255,255,255,1)]">
+            <Activity size={16} strokeWidth={3} />
           </span>
-
           {config.name}
         </div>
 
-        <p className="max-[800px]:hidden">
-          Care, made human.
+        <p className="text-center max-[800px]:hidden">
+          The walk-in clinic engine.
         </p>
 
-        <div className="flex justify-center gap-[22px] text-neutral-500 max-[800px]:flex-wrap max-[800px]:justify-end max-[800px]:gap-3">
-          <a
-            className="transition hover:text-red-600"
-            href="#top"
-          >
-            Back to top ↑
+        <div className="flex justify-end gap-6 text-neutral-500 max-[800px]:flex-wrap max-[800px]:gap-4">
+          <a className="transition hover:text-red-600" href="#top">
+            Top ↑
           </a>
-
-          <a
-            className="transition hover:text-red-600"
-            href="#contact"
-          >
-            Instagram
+          <a className="transition hover:text-red-600" href="#contact">
+            Support
           </a>
-
-          <a
-            className="transition hover:text-red-600"
-            href="#contact"
-          >
-            LinkedIn
+          <a className="transition hover:text-red-600" href="#contact">
+            Terms
           </a>
         </div>
       </footer>
