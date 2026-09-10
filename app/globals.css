@@ -1,171 +1,94 @@
+/* The v4 engine import */
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* 
+  Tailwind v4 natively converts variables inside @theme into utility classes.
+  Defining --color-skeuo-red here automatically gives you text-skeuo-red, 
+  bg-skeuo-red, ring-skeuo-red, etc. 
+*/
+@theme {
+  --color-skeuo-base: #f5f5f5;
+  --color-skeuo-surface: #e5e5e5;
+  --color-skeuo-text: #171717;
+  --color-skeuo-muted: #737373;
+  --color-skeuo-red: #ef4444;
+  --color-skeuo-red-dark: #dc2626;
 
-@theme inline {
-  /* ─────────────────────────────────────
-     Base
-  ───────────────────────────────────── */
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  /* ─────────────────────────────────────
-     Cards
-  ───────────────────────────────────── */
-
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-
-  /* ─────────────────────────────────────
-     Primary — Healthcare Red
-  ───────────────────────────────────── */
-
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  /* ─────────────────────────────────────
-     Secondary
-  ───────────────────────────────────── */
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
-  /* ─────────────────────────────────────
-     Muted
-  ───────────────────────────────────── */
-
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
-  /* ─────────────────────────────────────
-     Accent
-  ───────────────────────────────────── */
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  /* ─────────────────────────────────────
-     Borders & Inputs
-  ───────────────────────────────────── */
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  /* ─────────────────────────────────────
-     Status Colors
-  ───────────────────────────────────── */
-
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-
-  /* ─────────────────────────────────────
-     Healthcare Palette
-  ───────────────────────────────────── */
-
-  --color-medical-red: #dc2626;
-  --color-medical-red-dark: #b91c1c;
-  --color-medical-red-light: #fef2f2;
-
-  --color-medical-green: #16a34a;
-  --color-medical-blue: #2563eb;
-
-  /* ─────────────────────────────────────
-     Radius
-  ───────────────────────────────────── */
-
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1.5rem;
-  --radius-xl: 2rem;
+  /* Shadow Variables for use inside custom utilities */
+  --shadow-dark: rgba(0, 0, 0, 0.06);
+  --shadow-light: rgba(255, 255, 255, 0.9);
+  --shadow-brand: rgba(220, 38, 38, 0.25);
 }
 
-/* ═══════════════════════════════════════
-   LIGHT THEME
-   ═══════════════════════════════════════ */
-
-:root {
-  /* Base */
-  --background: #ffffff;
-  --foreground: #171717;
-
-  /* Cards */
-  --card: #ffffff;
-  --card-foreground: #171717;
-
-  /* Primary — Medical Red */
-  --primary: #dc2626;
-  --primary-foreground: #ffffff;
-
-  /* Secondary */
-  --secondary: #f5f5f5;
-  --secondary-foreground: #262626;
-
-  /* Muted */
-  --muted: #f8f8f8;
-  --muted-foreground: #737373;
-
-  /* Accent */
-  --accent: #fef2f2;
-  --accent-foreground: #b91c1c;
-
-  /* Borders */
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #dc2626;
-
-  /* Status */
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-
-  --success: #16a34a;
-  --success-foreground: #ffffff;
+/* Establish the base canvas */
+@layer base {
+  body {
+    background-color: var(--color-skeuo-base);
+    color: var(--color-skeuo-text);
+  }
 }
 
-/* ═══════════════════════════════════════
-   DARK THEME
-   ═══════════════════════════════════════ */
+/* 
+  In v4, @utility replaces @layer components for custom classes. 
+  It natively supports CSS nesting (like &:active).
+*/
+@utility skeuo-raised {
+  background-color: var(--color-skeuo-base);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+             -8px -8px 16px var(--shadow-light);
+}
 
-.dark {
-  /* Base */
-  --background: #0f0f10;
-  --foreground: #fafafa;
+@utility skeuo-pressed {
+  background-color: var(--color-skeuo-base);
+  border: 1px solid transparent;
+  box-shadow: inset 4px 4px 8px var(--shadow-dark),
+              inset -4px -4px 8px var(--shadow-light);
+}
 
-  /* Cards */
-  --card: #18181b;
-  --card-foreground: #fafafa;
+@utility skeuo-btn-red {
+  background-image: linear-gradient(to bottom, var(--color-skeuo-red), var(--color-skeuo-red-dark));
+  color: #ffffff;
+  box-shadow: 6px 6px 12px var(--shadow-brand),
+             -4px -4px 10px var(--shadow-light),
+             inset 0 2px 1px rgba(255, 255, 255, 0.3),
+             inset 0 -2px 1px rgba(0, 0, 0, 0.2);
+  transition: all 200ms ease;
 
-  /* Primary */
-  --primary: #ef4444;
-  --primary-foreground: #ffffff;
+  &:active {
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(2px);
+  }
+}
 
-  /* Secondary */
-  --secondary: #27272a;
-  --secondary-foreground: #fafafa;
+@utility skeuo-btn-light {
+  background-color: var(--color-skeuo-base);
+  color: var(--color-skeuo-text);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+             -5px -5px 10px var(--shadow-light),
+             inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  transition: all 200ms ease;
 
-  /* Muted */
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
+  &:active {
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.08),
+                inset -3px -3px 6px var(--shadow-light);
+    transform: translateY(2px);
+  }
+}
 
-  /* Accent */
-  --accent: #3f1518;
-  --accent-foreground: #fca5a5;
+@utility skeuo-pill {
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+              inset -2px -2px 5px var(--shadow-light);
+}
 
-  /* Borders */
-  --border: #27272a;
-  --input: #3f3f46;
-  --ring: #ef4444;
-
-  /* Status */
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-
-  --success: #22c55e;
-  --success-foreground: #ffffff;
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 9999px;
+  border: 0;
+  padding: 14px 21px;
+  font-size: 13px;
+  font-weight: 700;
 }
