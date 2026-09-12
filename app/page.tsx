@@ -153,16 +153,60 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Hero UI Mockup (Redesigned with Overlapping Elements) */}
-        <div className="relative flex h-auto w-full items-center justify-center max-[800px]:mt-10">
-          <div className="skeuo-raised w-full max-w-[420px] overflow-hidden rounded-[32px] p-3">
-            <Image
-              src="/video-consult.jpg"
-              alt="Video consultation with doctor"
-              width={800}
-              height={1000}
-              className="w-full rounded-[24px] object-cover"
-            />
+        {/* Hero Visual — modern layered composition */}
+        <div className="relative flex h-auto w-full items-center justify-center max-[800px]:mt-16">
+          {/* Ambient glow blobs behind everything */}
+          <div className="pointer-events-none absolute -top-10 -right-10 size-[280px] rounded-full bg-skeuo-red/20 blur-[90px]" />
+          <div className="pointer-events-none absolute -bottom-16 -left-10 size-[220px] rounded-full bg-skeuo-red/10 blur-[80px]" />
+
+          {/* Main image card — blob mask */}
+          {/* Main image card — subtle blob mask */}
+          <div
+            className="skeuo-raised relative z-[1] mx-auto w-full max-w-[380px] aspect-square overflow-hidden p-3 transition-transform duration-500 hover:-translate-y-1"
+            style={{ borderRadius: '38px 38px 38px 90px' }}
+          >
+            <div
+              className="relative size-full overflow-hidden"
+              style={{ borderRadius: '32px 32px 32px 80px' }}
+            >
+              <Image
+                src="/video-consult.jpg"
+                alt="Video consultation with doctor"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+
+              <div className="absolute left-6 top-6 flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 backdrop-blur-sm shadow-md">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-skeuo-red opacity-75" />
+                  <span className="relative inline-flex size-2 rounded-full bg-skeuo-red" />
+                </span>
+                <span className="text-[10px] font-bold text-skeuo-text">Live Consult</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating vitals stat card — top right, overlapping */}
+          <div className="skeuo-raised absolute -right-4 top-6 z-[2] flex items-center gap-3 rounded-2xl bg-skeuo-base/95 px-4 py-3 backdrop-blur-md max-[440px]:right-0 max-[440px]:scale-90">
+            <div className="skeuo-pressed grid size-9 place-items-center rounded-full text-skeuo-red">
+              <Activity size={16} strokeWidth={2.5} />
+            </div>
+            <div>
+              <div className="text-[14px] font-black leading-none tracking-tight text-skeuo-text">120/80</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-wider text-skeuo-muted">Blood Pressure</div>
+            </div>
+          </div>
+
+          {/* Floating queue/patients stat card — bottom left, overlapping */}
+          <div className="skeuo-raised absolute -bottom-6 -left-6 z-[2] flex items-center gap-3 rounded-2xl bg-skeuo-base/95 px-4 py-3.5 backdrop-blur-md max-[440px]:left-0 max-[440px]:scale-90">
+            <div className="skeuo-pressed grid size-9 place-items-center rounded-full text-skeuo-red">
+              <Check size={16} strokeWidth={2.5} />
+            </div>
+            <div>
+              <div className="text-[14px] font-black leading-none tracking-tight text-skeuo-text">32 Patients</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-wider text-skeuo-muted">Seen Today</div>
+            </div>
           </div>
         </div>
       </section>
