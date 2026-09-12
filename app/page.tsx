@@ -232,7 +232,7 @@ export default function Page() {
                     sizes="(max-width: 768px) 90vw, 30vw"
                     className="object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/30 " />
                 </div>
               </div>
 
