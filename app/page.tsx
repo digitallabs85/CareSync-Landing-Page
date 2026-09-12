@@ -9,7 +9,8 @@ import {
   Play,
   ShieldCheck,
   Activity,
-  X
+  X,
+  Loader2
 } from 'lucide-react'
 import config from '@/app.json'
 import logo from '@/public/logo.png'
@@ -35,10 +36,37 @@ const solutions = [
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+
+    const formData = new FormData(event.currentTarget)
+    const payload = {
+      clinic: formData.get('clinic'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      volume: formData.get('volume'),
+      message: formData.get('message'),
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json()
+      if (!data.success) throw new Error()
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -417,7 +445,7 @@ export default function Page() {
               <p className="mb-8 text-sm text-skeuo-muted">
                 Our team will configure your demo and reach out shortly.
               </p>
-              <button type="button" className="btn-base skeuo-btn-light" onClick={() => setSubmitted(false)}>
+              <button type="button" className="btn-base cursor-pointer skeuo-btn-light" onClick={() => setSubmitted(false)}>
                 Send another message
               </button>
             </div>
@@ -445,13 +473,35 @@ export default function Page() {
               </label>
 
               <label className="flex flex-col gap-2.5 text-[12px] font-bold text-skeuo-text">
+                Phone Number <span className="font-normal text-skeuo-muted">(optional)</span>
+                <input type="tel" name="phone" placeholder="+92 300 1234567" className="skeuo-pressed rounded-[14px] px-4 py-3.5 text-[13px] font-medium text-skeuo-text outline-none transition-all placeholder:text-skeuo-muted focus:ring-2 focus:ring-skeuo-red" />
+              </label>
+
+              <label className="flex flex-col gap-2.5 text-[12px] font-bold text-skeuo-text">
                 Additional Details
                 <textarea name="message" placeholder="Tell us about your current vitals and checkup workflow..." rows={4} className={`skeuo-pressed resize-y rounded-[16px] px-4 py-3.5 text-[13px] font-medium text-skeuo-text outline-none transition-all placeholder:text-skeuo-muted focus:ring-2 focus:ring-skeuo-red`} />
               </label>
 
-              <button className="btn-base skeuo-btn-red mt-2 w-full" type="submit">
-                Request Demo Access
-                <ArrowUpRight size={18} />
+              {error && (
+                <p className="text-[12px] font-medium text-skeuo-red">{error}</p>
+              )}
+
+              <button
+                className="btn-base cursor-pointer skeuo-btn-red mt-2 w-full disabled:cursor-not-allowed disabled:opacity-60"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Request Demo Access
+                    <ArrowUpRight size={18} />
+                  </>
+                )}
               </button>
             </>
           )}
